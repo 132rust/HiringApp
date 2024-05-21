@@ -5,7 +5,7 @@ import Room from './layouts /room/Room';
 
 
 function App() {
-  if (true) {return (<Room />)}
+  if (false) {return (<Room />)}
 else {
   return (
     <div className="App">
