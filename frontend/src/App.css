@@ -211,3 +211,105 @@ font-weight: bold;
   font-size: 21px;
   font-weight: bold;
 }
+
+/* SIGN IN */
+
+
+.wrapper{
+  width: 500px;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 100px;
+  background-color: #03282B;
+  border-radius: 20px;
+  align-items: center;
+  box-shadow: 5px 3px 20px 15px rgba(0, 0, 0, 0.5); 
+}
+
+.wrapper_header{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  font-size: 24px;
+  color: #deeeef;
+  width: 400px;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.wrapper_header button{
+  background: none;
+  color: white;
+  border: 1px solid #666;
+  padding: 7px 42px;
+  font-size: 14px;
+  font-weight: bold;
+
+}
+.wrapper_header button:hover{
+  background-color: #498F95;
+
+}
+.wrapper form{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.wrapper input {
+  width: 365px;
+  height: 30px;
+  padding: 15px;
+  border: none;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+form button{
+  border: 1px solid #666;
+  padding: 15px;
+  color: #deeeef;
+  font-size: 21px;
+  font-weight: bold;
+  background: none;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 400px;
+}
+form button:hover{
+  background-color: #498F95;
+}
+
+.label_text{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  
+}
+.check-label {
+  font-size: 0.9em;
+  color: #deeeef;
+  float: left;
+  padding: 3px 0;
+  margin-left: 10px;
+}
+.check-label:hover{
+  border-bottom: 1px solid #498F95;
+}
+
+.forgot-label {
+  font-size: 0.9em;
+  color: #deeeef;
+  float: right;
+  padding: 3px 0;
+  cursor: pointer;
+}
+.forgot-label:hover{
+  border-bottom: 1px solid #498F95;
+  
+}
