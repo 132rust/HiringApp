@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8eb05d61-8c30-4dc7-b74a-d0f9d1a5b87d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../backend/requirement.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/adapters/orm_engines/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/adapters/orm_engines/sql_alchemy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/adapters/repositories/redis_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/adapters/repositories/sqlalchemy_company_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/core/exceptions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/core/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/domain/company.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/domain/question.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/domain/score.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/domain/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/ports/repository/cache_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/ports/repository/company_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/routers/auth_router.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/routers/schemas/auth_schemas.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/usecases/auth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/usecases/token_action.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/usecases/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reportWebVitals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setupTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2giwuxPtzrczTu9Z2qxOOshDEEO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/vadimchik/Desktop/python/Hiring_app/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8eb05d61-8c30-4dc7-b74a-d0f9d1a5b87d" name="Changes" comment="" />
+      <created>1716193932471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1716193932471</updated>
+      <workItem from="1716193933534" duration="750000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
