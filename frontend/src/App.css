@@ -6,6 +6,7 @@
 }
 body{
   font-family: 'Roboto', sans-serif;
+ 
 }
 /* Header*/
 
@@ -17,6 +18,7 @@ body{
  
 }
 .heaedr_logo{
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   margin-left: 10px;
@@ -27,12 +29,12 @@ body{
 .heaeder_text{
   background-color: #666;
   display: flex;
-  padding-top:10px ;
-  padding-bottom:10px ;
+  padding-top:20px ;
+  padding-bottom:20px ;
 }
 .heaeder_text p{
   margin: 0 auto;
-  font-size: 21px;
+  font-size: 24px;
   font-weight: bold;
   color: white;
   text-shadow: 1px 1px 2px rgb(135, 134, 134);
@@ -84,4 +86,10 @@ body{
   width: 450px;
   height: 120px;
   background: #666;
+}
+
+/* main */ 
+
+.main {
+
 }
