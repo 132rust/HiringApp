@@ -57,6 +57,30 @@ const blurHandle = (e) =>{
     }
 }
 
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await fetch('http://127.0.0.1:8000/login/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+        const data = await response.json();
+        if (response.ok) {
+            // Обработка успешного входа
+            console.log('Login successful:', data);
+        } else {
+            // Обработка ошибки
+            console.error('Login failed:', data);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
     
         
     return(
@@ -69,7 +93,7 @@ const blurHandle = (e) =>{
                 <button>Регистрация</button>
             
             </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                
                     <input  
                     onChange={e => emailHandler(e)}
