@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 
 
 
@@ -14,18 +14,18 @@ export default function SignIn() {
           <div className="wrapper">
             
             <div className="wrapper_header">
-                <h3>Sign in</h3>
-                <button>Register</button>
+                <h3>Авторизация</h3>
+                <button>Регистрация</button>
             
             </div>
                 <form>
 
                     <input type="text" placeholder="My name is"/>
                     <input type="password" placeholder="Password"/>
-                    <button>Sign In</button>
+                    <button>Войти</button>
                     <div className="label_text">
-                    <span className="check-label">Remeber me</span>
-                    <span className="forgot-label">Lost your password</span>
+                    <span className="check-label">Запомнить меня</span>
+                    <span className="forgot-label">Забыли пароль?</span>
                     </div>
                 </form>
 
