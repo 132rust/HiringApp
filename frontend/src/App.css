@@ -285,40 +285,13 @@ form button:hover{
   background-color: #498F95;
 }
 
-.label_text{
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5px;
-  
-}
-.check-label {
-  font-size: 0.9em;
-  color: #deeeef;
-  float: left;
-  padding: 3px 0;
-  margin-left: 10px;
-}
-.check-label:hover{
-  border-bottom: 1px solid #498F95;
-}
 
-.forgot-label {
-  font-size: 0.9em;
-  color: #deeeef;
-  float: right;
-  padding: 3px 0;
-  cursor: pointer;
-}
-.forgot-label:hover{
-  border-bottom: 1px solid #498F95;
-  
-}
 
 /* REGISTR */
 
 .wrapper_register{
   width: 500px;
-  height: 600px;
+  height: 650px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;

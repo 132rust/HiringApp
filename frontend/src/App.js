@@ -3,8 +3,11 @@ import './App.css';
 import Header from './layouts /components/Header';
 import Main from './layouts /components/Main';
 // import Room from './layouts /room/Room';
-// import SignIn from './layouts /register/SignIn';
 import Register from './layouts /auth/register/Register'; 
+// import SignIn from './layouts /auth/login/SignIn';
+
+
+
 
 function App() {
   if (true) {
