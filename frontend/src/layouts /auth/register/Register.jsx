@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import Header from "../../components/Header";
+import React, { useEffect, useState } from 'react';
+import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie'; // Импорт js-cookie
-
+import Cookies from 'js-cookie';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +19,6 @@ const Register = () => {
   const [formValid, setFormValid] = useState(false);
 
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError || companyNameError) {
@@ -32,7 +30,8 @@ const Register = () => {
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Некорректный email');
     } else {
@@ -89,43 +88,41 @@ const Register = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formValid) return;
-  
+
     try {
       const response = await fetch('http://127.0.0.1:8000/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, "company_name": companyName }),
+        body: JSON.stringify({ email, password, company_name: companyName }),
       });
-      const data = await response.json();
+
       if (response.ok) {
-        // Сохраняем данные пользователя в куки
+        const data = await response.json();
         Cookies.set('userData', { email, password, companyName });
-  
-        // Обработка успешной регистрации
         console.log('Registration successful:', data);
-        // Переход на страницу входа
         navigate('/login');
       } else {
-        // Проверяем наличие ошибки "Email уже существует"
-        if (data.error && data.error === 'Email уже существует') {
-          setEmailError('Email уже существует');
+        if (response.status === 400 || response.status === 500) {
+          setEmailError('Этот email уже существует');
         } else {
-          // Обработка других ошибок
-          console.error('Registration failed:', data);
+          const errorData = await response.json();
+          if (errorData.error) {
+            setEmailError(errorData.error);
+          } else {
+            setEmailError('Такой Email уже существует');
+          }
         }
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Ошибка:', error);
+      setEmailError('Такой Email уже существует');
     }
   };
-  
-  
 
   const handleLogIn = () => {
     navigate('/login');
@@ -140,19 +137,18 @@ const Register = () => {
           <button onClick={handleLogIn}>Авторизация</button>
         </div>
         <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        {emailDirty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
-        {emailError === 'Email уже существует' && <div style={{ color: 'red' }}>Этот email уже занят</div>}
-<input
-  onBlur={blurHandler}
-  onChange={emailHandler}
-  type="email"
-  placeholder="Введите ваш Email"
-  name="email"
-  value={email}
-/>
-
-
+          <label>Email</label>
+          <input
+            onBlur={blurHandler}
+            onChange={emailHandler}
+            type="email"
+            placeholder="Введите ваш Email"
+            name="email"
+            value={email}
+          />
+          {emailDirty && emailError && (
+            <div style={{ color: 'red', textAlign:"center"  }}>{emailError}</div>
+          )}
           <label>Пароль</label>
           <input
             onBlur={blurHandler}
@@ -162,7 +158,9 @@ const Register = () => {
             placeholder="Введите ваш пароль"
             value={password}
           />
-          {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+          {passwordDirty && passwordError && (
+            <div style={{color: 'red', textAlign:"center" }}>{passwordError}</div>
+          )}
 
           <label>Подтвердите пароль</label>
           <input
@@ -173,7 +171,9 @@ const Register = () => {
             placeholder="Подтвердите ваш пароль"
             value={confirmPassword}
           />
-          {confirmPasswordDirty && confirmPasswordError && <div style={{ color: 'red' }}>{confirmPasswordError}</div>}
+          {confirmPasswordDirty && confirmPasswordError && (
+            <div style={{ color: 'red', textAlign:"center" }}>{confirmPasswordError}</div>
+          )}
 
           <label>Название компании</label>
           <input
@@ -184,9 +184,13 @@ const Register = () => {
             placeholder="Введите название вашей компании"
             value={companyName}
           />
-          {companyNameDirty && companyNameError && <div style={{ color: 'red' }}>{companyNameError}</div>}
+          {companyNameDirty && companyNameError && (
+            <div style={{ color: 'red', textAlign:"center"}}>{companyNameError}</div>
+          )}
 
-          <button disabled={!formValid} type="submit">Зарегистрироваться</button>
+          <button disabled={!formValid} type="submit">
+            Зарегистрироваться
+          </button>
         </form>
       </div>
     </>

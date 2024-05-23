@@ -23,7 +23,8 @@ const LogIn = () => {
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Некорректный email');
     } else {
@@ -68,12 +69,10 @@ const LogIn = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        // Обработка успешного входа
         console.log('Login successful:', data);
-        // Переход на другую страницу после успешного входа, например, на страницу профиля
+
         navigate('/main');
       } else {
-        // Обработка ошибки
         console.error('Login failed:', data);
       }
     } catch (error) {
@@ -94,7 +93,7 @@ const LogIn = () => {
           <button onClick={handleRegister}>Регистрация</button>
         </div>
         <form onSubmit={handleSubmit}>
-        <label>Email</label>
+          <label>Email</label>
           <input
             onChange={emailHandler}
             onBlur={blurHandle}
@@ -103,7 +102,9 @@ const LogIn = () => {
             type="text"
             placeholder="Введите ваш email"
           />
-          {emailDirty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
+          {emailDirty && emailError && (
+            <div style={{ color: 'red', textAlign:"center" }}>{emailError}</div>
+          )}
           <label>Пароль</label>
           <input
             onChange={passwordHandler}
@@ -113,8 +114,12 @@ const LogIn = () => {
             type="password"
             placeholder="Введите ваш пароль"
           />
-          {passwordDirty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-          <button disabled={!formValid} type="submit">Войти</button>
+          {passwordDirty && passwordError && (
+            <div style={{ color: 'red', textAlign:"center" }}>{passwordError}</div>
+          )}
+          <button disabled={!formValid} type="submit">
+            Войти
+          </button>
         </form>
       </div>
     </>
