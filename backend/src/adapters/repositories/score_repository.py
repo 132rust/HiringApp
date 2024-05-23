@@ -1,67 +1,54 @@
 from typing import List
 
-from sqlalchemy import insert, select, update, delete
+from sqlalchemy import insert, select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from adapters.orm_engines import models
 from core.exceptions import DatabaseException
-from domain.question import Question
-from ports.repository.question_repository import QuestionRepository
+from domain.score import Score
+from ports.repository.score_repository import ScoreRepository
 
 
-class SQLAlchemyQuestionRepository(QuestionRepository):
+class SQLAlchemyScoreRepository(ScoreRepository):
 
     def __init__(self, db: AsyncSession):
         self.db = db
 
     @staticmethod
-    def _from_model_to_dataclass(db_question: models.Question | None) -> Question | None:
-        if db_question is None:
+    def _from_model_to_dataclass(db_score: models.Score | None) -> Score | None:
+        if db_score is None:
             return None
-        question = Question(
-            question_id=db_question.question_id,
-            description=db_question.description,
-            answer=db_question.answer,
-            test_id=db_question.test_id)
-        return question
+        score = Score(
+            score_id=db_score.score_id,
+            score=db_score.score,
+            candidate_name=db_score.candidate_name,
+            media_contact=db_score.media_contact,
+            date=db_score.date,
+            test_id=db_score.test_id)
+        return score
 
-    async def create_question(self, question: Question) -> Question:
+    async def create_score(self, score: Score) -> Score:
         try:
-            query = insert(models.Question).values(**question.to_dict()).returning(models.Question)
+            query = insert(models.Score).values(**score.to_dict()).returning(models.Score)
             result = await self.db.execute(query)
-            new_question = self._from_model_to_dataclass(result.scalar())
-            return new_question
+            new_score = self._from_model_to_dataclass(result.scalar())
+            return new_score
         except Exception as e:
             await self.db.rollback()
             raise DatabaseException(str(e))
 
-    async def get_all_questions(self, test_id: int) -> List[Question] | None:
+    async def get_all_scores(self, test_id: int) -> List[Score] | None:
         try:
-            query = select(models.Question).where(models.Question.test_id == test_id)
+            query = select(models.Score).where(models.Score.test_id == test_id)
             result = await self.db.execute(query)
-            questions = [self._from_model_to_dataclass(db_question) for db_question in result.scalars().all()]
-            return questions
+            scores = [self._from_model_to_dataclass(db_score) for db_score in result.scalars().all()]
+            return scores
         except Exception as e:
             raise DatabaseException(str(e))
 
-    async def update_question(self, question_id: int, new_question: Question) -> Question | None:
+    async def delete_score(self, score_id: int) -> None:
         try:
-            query = (
-                update(models.Question)
-                .where(models.Question.question_id == question_id)
-                .values(**new_question.to_dict())
-                .returning(models.Question)
-            )
-            result = await self.db.execute(query)
-            question = self._from_model_to_dataclass(result.scalar())
-            return question
-        except Exception as e:
-            await self.db.rollback()
-            raise DatabaseException(str(e))
-
-    async def delete_question(self, question_id: int) -> None:
-        try:
-            query = delete(models.Question).where(models.Question.question_id == question_id)
+            query = delete(models.Score).where(models.Score.score_id == score_id)
             await self.db.execute(query)
         except Exception as e:
             await self.db.rollback()

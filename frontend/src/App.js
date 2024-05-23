@@ -3,17 +3,17 @@ import { Routes, Route } from "react-router-dom";
 import Header from './layouts /components/Header';
 import Main from './layouts /components/Main';
 import Room from './layouts /room/Room';
-import Register from './layouts /auth/register/Register'; 
+import Register from './layouts /auth/register/Register';
 import SignIn from './layouts /auth/login/SignIn';
 import NotFound from "./layouts /error/NotFound";
-import {RequireToken} from "../src/layouts /auth/Auth";
+import {RequireToken} from "./layouts /auth/Auth";
 
 
 
 function App() {
-  
+
   return (
- 
+
     <div className="App">
         <Routes>
               <Route path='/' element={<SignIn />}/>

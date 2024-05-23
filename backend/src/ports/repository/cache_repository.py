@@ -10,3 +10,7 @@ class CacheRepository(ABC):
     @abstractmethod
     async def get_cache(self, key: str) -> dict:
         pass
+
+    @abstractmethod
+    async def delete_cache(self, key: str) -> None:
+        pass

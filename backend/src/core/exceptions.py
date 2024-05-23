@@ -34,6 +34,3 @@ class InvalidArgument(Exception):
 class RequestProcessingException(Exception):
     pass
 
-
-class InvalidFileType(Exception):
-    pass

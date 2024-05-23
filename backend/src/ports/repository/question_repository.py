@@ -14,7 +14,7 @@ class QuestionRepository(ABC):
         pass
 
     @abstractmethod
-    async def update_question(self, question_id: int, new_question: Question) -> Question | None:
+    async def update_question(self, new_question: Question) -> Question | None:
         pass
 
     @abstractmethod

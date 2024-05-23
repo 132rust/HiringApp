@@ -42,11 +42,11 @@ class SQLAlchemyTestRepository(TestRepository):
         except Exception as e:
             raise DatabaseException(str(e))
 
-    async def update_test(self, test_id: int, new_test: Test) -> Test | None:
+    async def update_test(self, new_test: Test) -> Test | None:
         try:
             query = (
                 update(models.Test)
-                .where(models.Test.test_id == test_id)
+                .where(models.Test.test_id == new_test.test_id)
                 .values(**new_test.to_dict())
                 .returning(models.Test)
             )

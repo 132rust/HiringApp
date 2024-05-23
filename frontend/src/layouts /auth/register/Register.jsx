@@ -39,8 +39,8 @@ const Register = () => {
 
   const passwordHandler = (e) => {
     setPassword(e.target.value);
-    if (e.target.value.length < 3 || e.target.value.length > 8) {
-      setPasswordError('Пароль должен быть длиннее 3 и меньше 8 символов');
+    if (e.target.value.length < 8 || e.target.value.length > 24) {
+      setPasswordError('Пароль должен быть длиннее 8 и меньше 24 символов');
       if (!e.target.value) {
         setPasswordError('Пароль не может быть пустым');
       }
@@ -91,12 +91,12 @@ const Register = () => {
     if (!formValid) return;
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/register', {
+      const response = await fetch('http://127.0.0.1:8000/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, companyName }),
+        body: JSON.stringify({ email, password, "company_name":companyName }),
       });
       const data = await response.json();
       if (response.ok) {

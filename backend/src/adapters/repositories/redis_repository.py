@@ -30,3 +30,6 @@ class RedisRepository(CacheRepository):
             return {}
         except aioredis.RedisError:
             raise RequestProcessingException
+
+    async def delete_cache(self, key: str) -> None:
+        await self.__redis_connection.delete(key)

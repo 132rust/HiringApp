@@ -44,11 +44,11 @@ class SQLAlchemyQuestionRepository(QuestionRepository):
         except Exception as e:
             raise DatabaseException(str(e))
 
-    async def update_question(self, question_id: int, new_question: Question) -> Question | None:
+    async def update_question(self, new_question: Question) -> Question | None:
         try:
             query = (
                 update(models.Question)
-                .where(models.Question.question_id == question_id)
+                .where(models.Question.question_id == new_question.question_id)
                 .values(**new_question.to_dict())
                 .returning(models.Question)
             )

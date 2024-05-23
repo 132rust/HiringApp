@@ -14,7 +14,7 @@ class TestRepository(ABC):
         pass
 
     @abstractmethod
-    async def update_test(self, test_id: int, new_test: Test) -> Test | None:
+    async def update_test(self, new_test: Test) -> Test | None:
         pass
 
     @abstractmethod
