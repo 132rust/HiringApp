@@ -16,10 +16,7 @@ export default function Header() {
             </div>
         </div>
         
-        <div className="heaeder_text">
-                <p>Доброго дня Yandex</p>
-            </div>
-       
+     
         </>
     
     )

@@ -23,7 +23,7 @@ const SignIn = () => {
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // исправлено без лишних обратных слешей
     if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Некорректный email');
     } else {
@@ -31,7 +31,7 @@ const SignIn = () => {
     }
   };
 
-const passwordHandler = (e) => {
+  const passwordHandler = (e) => {
     setPassword(e.target.value)
     if (e.target.value.length < 8 || e.target.value.length > 24){
         setPasswordError('Пароль должен быть длинее 8 и меньше 24 символов')

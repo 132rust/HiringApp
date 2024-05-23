@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import '../../App.css'
-
+import Welcome from "../components/Welcom";
 
 
 
@@ -10,7 +10,8 @@ export default function Room() {
     
     return(
             <>
-            <Header/>
+           <Header/>
+            <Welcome/>
             <div className="room">
             <div className="container">
                 <div className="container_inner">
