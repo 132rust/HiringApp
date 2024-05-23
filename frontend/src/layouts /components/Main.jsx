@@ -1,9 +1,23 @@
 import iconsStart from '../../icons/start.png'
 import iconsList from '../../icons/list.png'
+import iconsExit from '../../icons/exit.png'
 import Header from './Header'
 import Welcome from './Welcom'
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default function Main() {
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+
+        Cookies.remove('userData');
+        navigate('/login');
+
+    };
+
+
     return(
         <>
         <Header/>
@@ -18,6 +32,9 @@ export default function Main() {
             </div>
             <div className="btn_3">
                 <button>Статистика<img src={iconsList} alt="iconsList" /></button>
+            </div>
+            <div className="btn_3">
+                <button onClick={handleLogout}>Выйти<img src={iconsExit} alt="iconsExit" /></button>
             </div>
         </div>
        

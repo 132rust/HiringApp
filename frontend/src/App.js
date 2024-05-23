@@ -1,12 +1,11 @@
 import './App.css';
 import { Routes, Route } from "react-router-dom";
-import Header from './layouts /components/Header';
 import Main from './layouts /components/Main';
 import Room from './layouts /room/Room';
 import Register from './layouts /auth/register/Register';
-import SignIn from './layouts /auth/login/SignIn';
+import LogIn from './layouts /auth/login/LogIn';
 import NotFound from "./layouts /error/NotFound";
-import {RequireToken} from "./layouts /auth/Auth";
+
 
 
 
@@ -16,11 +15,11 @@ function App() {
 
     <div className="App">
         <Routes>
-              <Route path='/' element={<SignIn />}/>
+              <Route path='/login' element={<LogIn />}/>
               <Route path='/register' element={<Register/>}/>
               <Route path="*" element={<NotFound />} />
-              <Route path='/main' element={<RequireToken><Header/><Main/></RequireToken>}/>
-              <Route path='/room' element={<RequireToken><Header/><Room/></RequireToken>}/>
+              <Route path='/main' element={<Main/>}/>
+              <Route path='/room' element={<Room/>}/>
 
         </Routes>
     </div>

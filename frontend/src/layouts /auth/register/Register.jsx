@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'; // Импорт js-cookie
+
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -18,6 +20,7 @@ const Register = () => {
   const [formValid, setFormValid] = useState(false);
 
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     if (emailError || passwordError || confirmPasswordError || companyNameError) {
@@ -29,7 +32,7 @@ const Register = () => {
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // исправлено без лишних обратных слешей
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Некорректный email');
     } else {
@@ -86,35 +89,46 @@ const Register = () => {
     }
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formValid) return;
-
+  
     try {
       const response = await fetch('http://127.0.0.1:8000/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, "company_name":companyName }),
+        body: JSON.stringify({ email, password, "company_name": companyName }),
       });
       const data = await response.json();
       if (response.ok) {
+        // Сохраняем данные пользователя в куки
+        Cookies.set('userData', { email, password, companyName });
+  
         // Обработка успешной регистрации
         console.log('Registration successful:', data);
         // Переход на страницу входа
-        navigate('/signin');
+        navigate('/login');
       } else {
-        // Обработка ошибки
-        console.error('Registration failed:', data);
+        // Проверяем наличие ошибки "Email уже существует"
+        if (data.error && data.error === 'Email уже существует') {
+          setEmailError('Email уже существует');
+        } else {
+          // Обработка других ошибок
+          console.error('Registration failed:', data);
+        }
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  
+  
 
-  const handleSignIn = () => {
-    navigate('/');
+  const handleLogIn = () => {
+    navigate('/login');
   };
 
   return (
@@ -123,19 +137,21 @@ const Register = () => {
       <div className="wrapper_register">
         <div className="wrapper_header_register">
           <h3>Регистрация</h3>
-          <button onClick={handleSignIn}>Авторизация</button>
+          <button onClick={handleLogIn}>Авторизация</button>
         </div>
         <form onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input
-            onBlur={blurHandler}
-            onChange={emailHandler}
-            type="email"
-            placeholder="Введите ваш Email"
-            name="email"
-            value={email}
-          />
-          {emailDirty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
+        <label>Email</label>
+        {emailDirty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
+        {emailError === 'Email уже существует' && <div style={{ color: 'red' }}>Этот email уже занят</div>}
+<input
+  onBlur={blurHandler}
+  onChange={emailHandler}
+  type="email"
+  placeholder="Введите ваш Email"
+  name="email"
+  value={email}
+/>
+
 
           <label>Пароль</label>
           <input
