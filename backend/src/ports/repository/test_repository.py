@@ -18,5 +18,5 @@ class TestRepository(ABC):
         pass
 
     @abstractmethod
-    async def delete_test(self, test_id: int) -> None:
+    async def delete_test(self, test_id: int, company_id: int) -> None:
         pass

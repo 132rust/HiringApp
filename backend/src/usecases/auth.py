@@ -25,6 +25,7 @@ class AuthUseCase:
             "access_token": access_token,
             "refresh_token": refresh_token,
             "token_type": "bearer",
+            "company_name": company.company_name
         }
 
     async def register(self, company: Company) -> None:

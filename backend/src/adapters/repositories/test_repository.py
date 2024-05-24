@@ -1,6 +1,6 @@
 from typing import List
 
-from sqlalchemy import insert, select, update, delete
+from sqlalchemy import insert, select, update, delete, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from adapters.orm_engines import models
@@ -20,7 +20,8 @@ class SQLAlchemyTestRepository(TestRepository):
             return None
         test = Test(
             test_id=db_test.test_id,
-            test_name=db_test.test_name)
+            test_name=db_test.test_name,
+            company_id=db_test.company_id)
         return test
 
     async def create_test(self, test: Test) -> Test:
@@ -57,9 +58,12 @@ class SQLAlchemyTestRepository(TestRepository):
             await self.db.rollback()
             raise DatabaseException(str(e))
 
-    async def delete_test(self, test_id: int) -> None:
+    async def delete_test(self, test_id: int, company_id: int) -> None:
         try:
-            query = delete(models.Test).where(models.Test.test_id == test_id)
+            query = delete(models.Test).where(and_(
+                models.Test.test_id == test_id,
+                models.Test.company_id == company_id
+            ))
             await self.db.execute(query)
         except Exception as e:
             await self.db.rollback()

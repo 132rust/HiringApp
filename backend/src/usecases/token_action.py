@@ -25,7 +25,7 @@ class TokenUseCase:
     def get_id_from_token(token: str) -> int:
         try:
             payload = jwt.decode(token, settings.JWT_SECRET_KEY, settings.JWT_ALGORITHM)
-            return payload["user_id"]
+            return payload["company_id"]
         except Exception:
             raise InvalidTokenException
 
