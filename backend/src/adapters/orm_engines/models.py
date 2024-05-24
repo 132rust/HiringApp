@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from sqlalchemy import String, ForeignKey, Date, func
+from sqlalchemy import String, ForeignKey, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -26,8 +26,8 @@ class Test(Base):
     company_id: Mapped[int] = mapped_column(ForeignKey("companies.company_id"))
     company: Mapped[Company] = relationship(back_populates="tests")
 
-    questions: Mapped[List["Question"]] = relationship(back_populates="test", cascade="all")
-    scores: Mapped[List["Score"]] = relationship(back_populates="test", cascade="all")
+    questions: Mapped[List["Question"]] = relationship(back_populates="test", cascade="all, delete-orphan")
+    scores: Mapped[List["Score"]] = relationship(back_populates="test", cascade="all, delete-orphan")
 
 
 class Question(Base):
