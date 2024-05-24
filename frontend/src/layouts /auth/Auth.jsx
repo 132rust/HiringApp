@@ -29,7 +29,7 @@ export const fetchToken = async () => {
     };
 
     const formDataToSend = new FormData();
-    formDataToSend.append('refresh_token', getCookie('refreshToken'));
+    formDataToSend.append('access_token', getCookie('accessToken'));
 
     const requestRefreshOptions = {
         method: 'POST',

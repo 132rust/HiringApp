@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -103,7 +103,7 @@ const Register = () => {
 
       if (response.ok) {
         const data = await response.json();
-        Cookies.set('userData', { email, password, companyName });
+       
         console.log('Registration successful:', data);
         navigate('/login');
       } else {

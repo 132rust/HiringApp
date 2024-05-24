@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import iconsPlus from '../../icons/plus.png';
 import iconsCross from '../../icons/cross.png';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const CreateTest = () => {
   const [tasks, setTasks] = useState([{ id: Date.now(), question: '', answer: '' }]);
@@ -34,22 +35,22 @@ const CreateTest = () => {
       return;
     }
 
+    const token = Cookies.get('accessToken');
+
     const data = {
       test_name: testName,
       questions: tasks.map((task) => ({ description: task.question, answer: task.answer })),
     };
-      console.log(localStorage.getItem('accessToken'))
+
     try {
       const response = await fetch('http://127.0.0.1:8000/test/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(data),
       });
-
-
 
       if (response.ok) {
         navigate('/main');
