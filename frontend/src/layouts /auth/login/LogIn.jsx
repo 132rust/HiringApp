@@ -72,7 +72,7 @@ const LogIn = () => {
         console.log('Login successful:', data);
         Cookies.set('access_token', data['access_token']);
         Cookies.set('refresh_token', data['refresh_token']);
-        Cookies.set('company_name', data['comany_name']);
+        Cookies.set('company_name', data['company_name']);
         navigate('/main');
       } else {
         console.error('Login failed:', data);

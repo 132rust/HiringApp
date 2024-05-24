@@ -35,7 +35,7 @@ const CreateTest = () => {
       return;
     }
 
-    const token = Cookies.get('accessToken');
+    const token = Cookies.get('access_token');
 
     const data = {
       test_name: testName,
