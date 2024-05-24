@@ -24,7 +24,9 @@ class TokenUseCase:
     @staticmethod
     def get_id_from_token(token: str) -> int:
         try:
+            print(token,2222)
             payload = jwt.decode(token, settings.JWT_SECRET_KEY, settings.JWT_ALGORITHM)
+            print(payload,2222)
             return payload["company_id"]
         except Exception:
             raise InvalidTokenException

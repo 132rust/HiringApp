@@ -11,6 +11,7 @@ class TestUsecase:
     def __init__(self, auth, test_repo: TestRepository, question_repo: QuestionRepository):
         self.test_repo = test_repo
         self.question_repo = question_repo
+        print(auth)
         self.company_id = TokenUseCase.get_id_from_token(auth)
 
     async def create_test(self, test_name: str, questions: List[dict]) -> None:
