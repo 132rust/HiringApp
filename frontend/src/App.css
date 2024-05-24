@@ -26,13 +26,13 @@ body {
   text-shadow: 1px 1px 2px rgb(135, 134, 134);
 }
 
-.heaeder_text {
+.header_text {
   background-color: #98aebc;
   display: flex;
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.heaeder_text p {
+.header_text p {
   margin: 0 auto;
   font-size: 24px;
   font-weight: bold;
@@ -325,4 +325,172 @@ form label {
   color: #deeeef;
   font-weight: bold;
   padding: 5px;
+}
+
+/* CreatTest */
+.line {
+  border: 3px solid #03282b;
+  border-radius: 30px;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 35px;
+  margin-bottom: 20px;
+}
+.container_test {
+  display: flex;
+  flex-direction: column;
+}
+
+.name_test {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+.name_test_label{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.name_test_label label{
+  color: #03282b;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px;
+}
+.name_test_label input{
+  width: 315px;
+  height: 35px;
+  font-size: 18px;
+  font-weight: bold;
+
+}
+.name_test button {
+  width: 120px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgb(135, 134, 134);
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #deeeef;
+  box-shadow: 0 5px 0 #909090;
+  background: #03282b;
+}
+.name_test button:hover {
+  background: #498f95;
+  box-shadow: 0 5px 0 #555555;
+}
+
+.name_test_lable {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.name_test_lable label {
+  color: #03282b;
+  font-weight: bold;
+  font-size: 26px;
+  padding: 10px;
+}
+.name_test_lable input {
+  height: 30px;
+  font-size: 18px;
+}
+.container_inner_test{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  
+}
+.container_inner_test button{
+  width: 240px;
+  height: 70px;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgb(135, 134, 134);
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #deeeef;
+  box-shadow: 0 5px 0 #909090;
+  background: #03282b;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: space-around;
+  
+ 
+}
+.container_inner_test img{
+  width: 25px;
+  height: 25px;
+  position: relative;
+  right: 15px;
+}
+.container_inner_test button:hover {
+  background: #498f95;
+  box-shadow: 0 5px 0 #555555;
+}
+.test_task{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+.task_input{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+
+}
+.delete{
+  display: flex;
+  align-items: center;
+}
+.delete img{
+  width: 50px;
+  height: 50px;
+  
+
+}
+.delete button{
+  background:none;
+  box-shadow: none;
+  max-width: 50px;
+  height: 50px;
+  text-shadow: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+ 
+}
+.delete button:hover{
+  background:none;
+  box-shadow: none;
+  
+}
+.task_input label{
+ color: #03282b;
+ font-weight: bold;
+ font-size: 24px;
+ padding: 15px;
+ 
+}
+.task_input textarea{
+
+  width: 500px;
+  height: 150px;
+ border-radius: 30px;
+ font-size: 18px;
+ font-weight: bold;
+ resize: none;
+ padding: 15px;
 }

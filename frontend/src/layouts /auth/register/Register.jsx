@@ -41,11 +41,11 @@ const Register = () => {
 
   const passwordHandler = (e) => {
     setPassword(e.target.value);
-    if (e.target.value.length < 8 || e.target.value.length > 24) {
+    const password = e.target.value;
+    if (password.length < 8 || password.length > 24) {
       setPasswordError('Пароль должен быть длиннее 8 и меньше 24 символов');
-      if (!e.target.value) {
-        setPasswordError('Пароль не может быть пустым');
-      }
+    } else if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+      setPasswordError('Пароль должен содержать хотя бы одну прописную и одну строчную букву ');
     } else {
       setPasswordError('');
     }
@@ -147,7 +147,7 @@ const Register = () => {
             value={email}
           />
           {emailDirty && emailError && (
-            <div style={{ color: 'red', textAlign:"center"  }}>{emailError}</div>
+            <div style={{ color: 'red', textAlign: 'center', fontSize:'11px', padding:'3px' }}>{emailError}</div>
           )}
           <label>Пароль</label>
           <input
@@ -159,7 +159,7 @@ const Register = () => {
             value={password}
           />
           {passwordDirty && passwordError && (
-            <div style={{color: 'red', textAlign:"center" }}>{passwordError}</div>
+            <div style={{ color: 'red', textAlign: 'center', fontSize:'11px', padding:'3px' }}>{passwordError}</div>
           )}
 
           <label>Подтвердите пароль</label>
@@ -172,7 +172,7 @@ const Register = () => {
             value={confirmPassword}
           />
           {confirmPasswordDirty && confirmPasswordError && (
-            <div style={{ color: 'red', textAlign:"center" }}>{confirmPasswordError}</div>
+            <div style={{ color: 'red', textAlign: 'center', fontSize:'11px', padding:'3px' }}>{confirmPasswordError}</div>
           )}
 
           <label>Название компании</label>
@@ -185,7 +185,7 @@ const Register = () => {
             value={companyName}
           />
           {companyNameDirty && companyNameError && (
-            <div style={{ color: 'red', textAlign:"center"}}>{companyNameError}</div>
+            <div style={{ color: 'red', textAlign: 'center', fontSize:'11px', padding:'3px' }}>{companyNameError}</div>
           )}
 
           <button disabled={!formValid} type="submit">

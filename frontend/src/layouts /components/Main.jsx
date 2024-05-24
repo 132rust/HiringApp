@@ -14,6 +14,10 @@ export default function Main() {
     navigate('/login');
   };
 
+    const handleCreateTest = () =>{
+      navigate('/createTest');
+    }
+
   return (
     <>
       <Header />
@@ -26,7 +30,7 @@ export default function Main() {
           </button>
         </div>
         <div className="btn_2">
-          <button>Создать тест</button>
+          <button onClick={handleCreateTest}>Создать тест</button>
           <button>Редактировать тест</button>
         </div>
         <div className="btn_3">

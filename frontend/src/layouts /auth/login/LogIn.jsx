@@ -103,7 +103,7 @@ const LogIn = () => {
             placeholder="Введите ваш email"
           />
           {emailDirty && emailError && (
-            <div style={{ color: 'red', textAlign:"center" }}>{emailError}</div>
+            <div style={{ color: 'red', textAlign:"center", fontSize:'11px', padding:'3px' }}>{emailError}</div>
           )}
           <label>Пароль</label>
           <input
@@ -115,7 +115,7 @@ const LogIn = () => {
             placeholder="Введите ваш пароль"
           />
           {passwordDirty && passwordError && (
-            <div style={{ color: 'red', textAlign:"center" }}>{passwordError}</div>
+            <div style={{ color: 'red', textAlign:"center", fontSize:'11px', padding:'3px' }}>{passwordError}</div>
           )}
           <button disabled={!formValid} type="submit">
             Войти
