@@ -494,3 +494,10 @@ form label {
  resize: none;
  padding: 15px;
 }
+
+.error_message{
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 250px;
+}
