@@ -36,6 +36,7 @@ const CreateTest = () => {
   };
 
   const handleDeleteTask = (id) => {
+    console.log(typeof setTasks);
     setTasks(tasks.filter((task) => task.id !== id));
   };
 

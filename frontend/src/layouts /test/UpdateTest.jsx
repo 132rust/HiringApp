@@ -42,6 +42,9 @@ const UpdateTest = () => {
     fetchTestData();
   }, [test_id]);
 
+
+
+
   const handleAddTask = () => {
     const newTask = { id: Date.now(), question: '', answer: '' };
     setTasks([...tasks, newTask]);
@@ -56,7 +59,43 @@ const UpdateTest = () => {
   };
 
   const handleSave = async () => {
-    
+   if (!testName.trim()) {
+      console.error('Название теста не может быть пустым');
+      return;
+    }
+
+    if (tasks.some(task => !task.question.trim() || !task.answer.trim())) {
+      console.error('Все вопросы и ответы должны быть заполнены');
+      return;
+    }
+
+    const token = Cookies.get('access_token');
+
+    const data = {
+      test_id: Cookies.get('test_id'),
+      test_name: testName,
+      questions: tasks.map((task) => ({ description: task.question, answer: task.answer })),
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/test/update', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const savedTest = await response.json(); // Assuming the saved test data is returned
+        navigate('/main', { state: { savedTest } });
+      } else {
+        console.error('Не удалось сохранить тест');
+      }
+    } catch (error) {
+      console.error('Ошибка при сохранении теста', error);
+    }
   };
 
   useEffect(() => {

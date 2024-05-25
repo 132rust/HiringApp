@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const Modal = ({ active, setActive, savedTests, setSavedTests }) => {
+    console.log(typeof setSavedTests)
   const navigate = useNavigate();
 
-  
-  const handleEditTest = (test_id) => {
+    const handleEditTest = (test_id) => {
     Cookies.set('test_id', test_id);
     navigate(`/updateTest`);
   };
@@ -25,7 +25,7 @@ const Modal = ({ active, setActive, savedTests, setSavedTests }) => {
       });
 
       if (response.ok) {
-        // Удаляем тест из списка
+        console.log(typeof setSavedTests);
         setSavedTests(savedTests.filter((test) => test.test_id !== test_id));
       } else {
         console.error('Failed to delete test');

@@ -85,7 +85,8 @@ export default function Main() {
           </button>
         </div>
       </div>
-      <Modal active={modalActive} setActive={setModalActive} savedTests={savedTests} />
+     
+      <Modal active={modalActive} setActive={setModalActive} savedTests={savedTests} setSavedTests={setSavedTests} />
     </>
   );
 }
