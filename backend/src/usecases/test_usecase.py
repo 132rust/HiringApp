@@ -27,9 +27,13 @@ class TestUsecase:
         tests = await self.test_repo.get_all_tests(self.company_id)
         return [{"test_id": test.test_id, "test_name": test.test_name} for test in tests]
 
-    async def get_test(self, test_id: int) -> List[dict]:
+    async def get_test(self, test_id: int) -> dict:
         questions = await self.question_repo.get_all_questions(test_id)
-        return [{"description": question.description, "answer": question.answer} for question in questions]
+        questions = [{"description": question.description, "answer": question.answer} for question in questions]
+        test = await self.test_repo.get_test(test_id)
+        response={"test_name": test.test_name,
+                  "questions": questions}
+        return response
 
     async def update_test(self, test_id: int, test_name: str, questions: List[dict]) -> None:
         await self.delete_test(test_id)

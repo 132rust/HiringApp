@@ -35,7 +35,7 @@ class Question(Base):
     question_id: Mapped[int] = mapped_column(primary_key=True)
     description: Mapped[str] = mapped_column(nullable=False)
     answer: Mapped[str] = mapped_column(nullable=False)
-    test_id: Mapped[int] = mapped_column(ForeignKey("tests.test_id"))
+    test_id: Mapped[int] = mapped_column(ForeignKey("tests.test_id", ondelete="CASCADE"))
     test: Mapped["Test"] = relationship(back_populates="questions")
 
 
@@ -47,5 +47,5 @@ class Score(Base):
     media_contact: Mapped[str] = mapped_column()
     date: Mapped[datetime] = mapped_column(server_default=func.now())
 
-    test_id: Mapped[int] = mapped_column(ForeignKey("tests.test_id"))
+    test_id: Mapped[int] = mapped_column(ForeignKey("tests.test_id", ondelete="CASCADE"))
     test: Mapped["Test"] = relationship(back_populates="scores")

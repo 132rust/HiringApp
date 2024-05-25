@@ -20,3 +20,7 @@ class TestRepository(ABC):
     @abstractmethod
     async def delete_test(self, test_id: int, company_id: int) -> None:
         pass
+
+    @abstractmethod
+    async def get_test(self, test_id: int) -> Test | None:
+        pass

@@ -68,3 +68,11 @@ class SQLAlchemyTestRepository(TestRepository):
         except Exception as e:
             await self.db.rollback()
             raise DatabaseException(str(e))
+
+    async def get_test(self, test_id: int) -> Test | None:
+        try:
+            query = select(models.Test).where(models.Test.test_id == test_id)
+            result = await self.db.execute(query)
+            return self._from_model_to_dataclass(result.scalar())
+        except Exception as e:
+            raise DatabaseException(str(e))
