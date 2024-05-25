@@ -7,7 +7,10 @@ class TestCreate(BaseModel):
     test_name: str
     questions: List[dict]
 
-class TestUpdate(BaseModel):
+
+class TestDelete(BaseModel):
     test_id: int
-    test_name: str
-    questions: List[dict]
+
+
+class TestUpdate(TestCreate, TestDelete):
+    pass
