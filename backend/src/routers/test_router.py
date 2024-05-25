@@ -24,7 +24,7 @@ async def update_test(test: TestUpdate, usecase: TestUsecase = Depends(get_test_
 
 @test_router.delete("/delete", status_code=status.HTTP_200_OK)
 async def delete_test(test:  TestDelete, usecase: TestUsecase = Depends(get_test_usecase)):
-    await usecase.delete_test(test.te)
+    await usecase.delete_test(test.test_id)
 
 
 @test_router.get("/{test_id}", status_code=status.HTTP_200_OK)
