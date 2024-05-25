@@ -3,28 +3,59 @@ import iconsList from '../../icons/list.png';
 import iconsExit from '../../icons/exit.png';
 import Header from './Header';
 import Welcome from './Welcom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from '../modal/ModalEdit';
-
-
-
-
 
 export default function Main() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [modalActive, setModalActive] = useState(false);
+  const [savedTests, setSavedTests] = useState([]);
 
   const handleLogout = () => {
     Cookies.remove('userData');
     navigate('/login');
   };
 
-    const handleCreateTest = () =>{
-      navigate('/createTest');
-    }
+  const handleCreateTest = () => {
+    navigate('/createTest');
+  };
 
-    const [modalActive, setModalActive] = useState() 
+  // Fetch saved tests on component mount
+  useEffect(() => {
+    const fetchSavedTests = async () => {
+      try {
+        const token = Cookies.get('access_token');
+        const response = await fetch('http://127.0.0.1:8000/test/read', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSavedTests(data);
+        } else {
+          console.error('Failed to fetch saved tests');
+        }
+      } catch (error) {
+        console.error('Error fetching saved tests:', error);
+      }
+    };
+
+    fetchSavedTests();
+  }, []);
+
+  // Update state with the new test if available in location state
+  useEffect(() => {
+    if (location.state?.savedTest) {
+      setSavedTests((prevTests) => [...prevTests, location.state.savedTest]);
+    }
+  }, [location.state]);
 
   return (
     <>
@@ -54,10 +85,10 @@ export default function Main() {
           </button>
         </div>
       </div>
-      <Modal active={modalActive} setActive={setModalActive}>
-            
-
-        </Modal>
+      <Modal active={modalActive} setActive={setModalActive} savedTests={savedTests} />
     </>
   );
 }
+
+
+

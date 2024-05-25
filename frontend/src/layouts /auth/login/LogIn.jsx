@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+
 const LogIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,6 +11,7 @@ const LogIn = () => {
   const [emailError, setEmailError] = useState('Email не может быть пустым');
   const [passwordError, setPasswordError] = useState('Пароль не может быть пустым');
   const [formValid, setFormValid] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   const navigate = useNavigate();
 
@@ -75,9 +77,11 @@ const LogIn = () => {
         Cookies.set('company_name', data['company_name']);
         navigate('/main');
       } else {
+        setLoginError(data.message || 'Неверный логин или пароль');
         console.error('Login failed:', data);
       }
     } catch (error) {
+      setLoginError('Данные для входа не верные');
       console.error('Error:', error);
     }
   };
@@ -118,6 +122,9 @@ const LogIn = () => {
           />
           {passwordDirty && passwordError && (
             <div style={{ color: 'red', textAlign:"center", fontSize:'11px', padding:'3px' }}>{passwordError}</div>
+          )}
+          {loginError && (
+            <div style={{ color: 'red', textAlign:"center", fontSize:'11px', padding:'3px' }}>{loginError}</div>
           )}
           <button disabled={!formValid} type="submit">
             Войти

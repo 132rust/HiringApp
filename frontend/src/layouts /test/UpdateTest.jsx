@@ -1,30 +1,46 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import iconsPlus from '../../icons/plus.png';
 import iconsCross from '../../icons/cross.png';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-const CreateTest = () => {
+const UpdateTest = () => {
   const [tasks, setTasks] = useState([{ id: Date.now(), question: '', answer: '' }]);
   const [testName, setTestName] = useState('');
   const addButtonRef = useRef(null);
   const navigate = useNavigate();
-  const location = useLocation();
-  const testData = location.state?.testData;
+  const { test_id } = useParams();
 
   useEffect(() => {
-    if (testData) {
-      setTestName(testData.test_name);
-      setTasks(
-        testData.questions.map((q, index) => ({
-          id: Date.now() + index,
-          question: q.description,
-          answer: q.answer,
-        }))
-      );
-    }
-  }, [testData]);
+    const fetchTestData = async () => {
+      try {
+       const testId = Cookies.get('test_id')
+        const response = await fetch(`http://localhost:8000/test/${testId}`, {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            'Authorization': `Bearer ${Cookies.get('access_token')}`,
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setTestName(data.test_name);
+          setTasks(data.questions.map((q, index) => ({
+            id: Date.now() + index,
+            question: q.description,
+            answer: q.answer,
+          })));
+        } else {
+          console.error('Не удалось загрузить данные теста');
+        }
+      } catch (error) {
+        console.error('Ошибка при загрузке теста', error);
+      }
+    };
+
+    fetchTestData();
+  }, [test_id]);
 
   const handleAddTask = () => {
     const newTask = { id: Date.now(), question: '', answer: '' };
@@ -40,42 +56,7 @@ const CreateTest = () => {
   };
 
   const handleSave = async () => {
-    if (!testName.trim()) {
-      console.error('Название теста не может быть пустым');
-      return;
-    }
-
-    if (tasks.some(task => !task.question.trim() || !task.answer.trim())) {
-      console.error('Все вопросы и ответы должны быть заполнены');
-      return;
-    }
-
-    const token = Cookies.get('access_token');
-
-    const data = {
-      test_name: testName,
-      questions: tasks.map((task) => ({ description: task.question, answer: task.answer })),
-    };
-
-    try {
-      const response = await fetch('http://127.0.0.1:8000/test/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        const savedTest = await response.json(); // Assuming the saved test data is returned
-        navigate('/main', { state: { savedTest } });
-      } else {
-        console.error('Не удалось сохранить тест');
-      }
-    } catch (error) {
-      console.error('Ошибка при сохранении теста', error);
-    }
+    
   };
 
   useEffect(() => {
@@ -88,7 +69,7 @@ const CreateTest = () => {
     <>
       <Header />
       <div className="header_text">
-        <p>Создание теста</p>
+        <p>Редактирование теста</p>
       </div>
       <div className="container_test">
         <div className="name_test">
@@ -143,4 +124,4 @@ const CreateTest = () => {
   );
 };
 
-export default CreateTest;
+export default UpdateTest;
