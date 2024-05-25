@@ -5,6 +5,12 @@ import Header from './Header';
 import Welcome from './Welcom';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
+import Modal from '../modal/ModalEdit';
+
+
+
+
 
 export default function Main() {
   const navigate = useNavigate();
@@ -17,6 +23,8 @@ export default function Main() {
     const handleCreateTest = () =>{
       navigate('/createTest');
     }
+
+    const [modalActive, setModalActive] = useState() 
 
   return (
     <>
@@ -31,7 +39,7 @@ export default function Main() {
         </div>
         <div className="btn_2">
           <button onClick={handleCreateTest}>Создать тест</button>
-          <button>Редактировать тест</button>
+          <button onClick={() => setModalActive(true)}>Редактировать тест</button>
         </div>
         <div className="btn_3">
           <button>
@@ -46,6 +54,10 @@ export default function Main() {
           </button>
         </div>
       </div>
+      <Modal active={modalActive} setActive={setModalActive}>
+            
+
+        </Modal>
     </>
   );
 }
