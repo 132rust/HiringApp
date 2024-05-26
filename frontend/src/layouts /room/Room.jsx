@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import "../../App.css";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import Link from "../components/Link";
 
 export default function Room() {
   const [question, setQuestion] = useState("");
@@ -12,6 +13,7 @@ export default function Room() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showAnswer, setShowAnswer] = useState(false); // Состояние для отображения ответа
   const navigate = useNavigate();
+  
   useEffect(() => {
     // Получение room_id из URL
     const room_id = window.location.pathname.split("/").pop();
@@ -27,14 +29,12 @@ export default function Room() {
         });
         if (response.ok) {
           const data = await response.json();
-          console.log(data)
-          if (data != null) {
+          if (data) {
             setQuestion(data.description);
-          setAnswer(data.answer);
-          }else {
-            navigate('/main')
+            setAnswer(data.answer);
+          } else {
+            navigate('/main');
           }
-          
         } else {
           console.error("Failed to fetch room data");
         }
@@ -44,7 +44,7 @@ export default function Room() {
     };
 
     fetchData();
-  }, []);
+  }, [navigate]);
 
   const handleStartTest = async () => {
     const room_id = window.location.pathname.split("/").pop();
@@ -87,8 +87,7 @@ export default function Room() {
       });
 
       if (response.ok) {
-        console.log('Evaluation submitted successfully');
-        // Можно добавить дополнительные действия после успешной отправки оценки
+        // Успешная отправка оценки
       } else {
         console.error('Failed to submit evaluation');
       }
@@ -111,21 +110,29 @@ export default function Room() {
 
       if (response.ok) {
         const data = await response.json();
-        setQuestion(data.description);
-        setAnswer(data.answer);
-        setButtonColor("green"); // Сбрасываем цвет кнопки в исходное значение
-        setShowAnswer(false); // Скрываем ответ
+        if (data) {
+          setQuestion(data.description);
+          setAnswer(data.answer);
+          setButtonColor("green"); // Сбрасываем цвет кнопки в исходное значение
+          setShowAnswer(false); // Скрываем ответ
+          setEvaluation(''); // Обнуляем поле ввода оценки
+          setErrorMessage(''); // Сбрасываем сообщение об ошибке
+        } else {
+          navigate('/main'); // Перенаправляем на главную страницу, если нет следующего вопроса
+        }
       } else {
         setErrorMessage('Введите оценку');
       }
     } catch (error) {
       console.error('Error fetching next question:', error);
+      navigate('/main'); // Перенаправляем на главную страницу в случае ошибки
     }
   }
   
   return (
     <>
       <Header />
+      <Link url={window.location.pathname.replace("/room", "/check")}/>
       <div className="room">
         <div className="room_btn">
           <button onClick={handleStartTest} className={"toggle-button"} style={{ backgroundColor: buttonColor }}>
@@ -140,12 +147,11 @@ export default function Room() {
               value={evaluation}
               onChange={handleEvaluationChange} // Добавляем обработчик изменения значения
             />
-              {errorMessage && (
-            <div style={{ color: 'red', textAlign:"center", fontSize:'11px', padding:'3px' }}>{errorMessage}</div>
-          )}
+            {errorMessage && (
+              <div style={{ color: 'red', textAlign: "center", fontSize: '11px', padding: '3px' }}>{errorMessage}</div>
+            )}
           </div>
           <button onClick={handleNextQuestion}>Следующий вопрос</button> 
-
         </div>
 
         <div className="info">

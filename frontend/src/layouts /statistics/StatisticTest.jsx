@@ -1,17 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Statistics from '../components/Statistic';
 import '../statistics/StatisticTets.css';
+import Cookies from 'js-cookie';
 
 const StatisticTets = () => {
-  const [rows, setRows] = useState([
-    { id: 1, оценка: '1', имя: 'Иван Иванов', контакт: 'ivan@example.com', дата: '2023-05-01' },
-    { id: 2, оценка: '2', имя: 'Петр Петров', контакт: 'petr@example.com', дата: '2023-05-02' },
-    { id: 3, оценка: '2', имя: 'Сергей Сергеев', контакт: 'sergey@example.com', дата: '2023-05-03' },
-  ]);
+  const [rows, setRows] = useState([]);
 
-  const handleDelete = (id) => {
-    setRows(rows.filter(row => row.id !== id));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = Cookies.get('access_token');
+        const test_id = Cookies.get('test_id');
+        const response = await fetch(`http://127.0.0.1:8000/score/${test_id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setRows(data);
+        } else {
+          console.error('Failed to fetch statistics');
+        }
+      } catch (error) {
+        console.error('Error fetching statistics:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    const token = Cookies.get('access_token');
+       
+        await fetch(`http://127.0.0.1:8000/score/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ "score_id": id }) // Отправляем значение оценки
+      });
+    setRows(rows.filter(row => row.score_id !== id));
   };
 
   return (
@@ -32,13 +63,13 @@ const StatisticTets = () => {
             </thead>
             <tbody>
               {rows.map(row => (
-                <tr key={row.id}>
-                  <td>{row.оценка}</td>
-                  <td>{row.имя}</td>
-                  <td>{row.контакт}</td>
-                  <td>{row.дата}</td>
+                <tr key={row.score_id}>
+                  <td>{row.score}</td>
+                  <td>{row.candidate_name}</td>
+                  <td>{row.media_contact}</td>
+                  <td>{new Date(row.date).toLocaleString()}</td>
                   <td>
-                    <button onClick={() => handleDelete(row.id)} className="delete-button">
+                    <button onClick={() => handleDelete(row.score_id)} className="delete-button">
                       Удалить
                     </button>
                   </td>

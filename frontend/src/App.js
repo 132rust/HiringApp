@@ -7,7 +7,7 @@ import LogIn from './layouts /auth/login/LogIn';
 import CreateTest from './layouts /test/CreateTest';
 import UpdateTest from './layouts /test/UpdateTest';
 import StatisticTest from './layouts /statistics/StatisticTest';
-
+import Check from './layouts /check/Check';
 function App() {
   return (
     <div className="App">
@@ -15,7 +15,8 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/room/:test_id" element={<Room />} />
+        <Route path="/room/:room_id" element={<Room />} />
+        <Route path="/check/:room_id" element={<Check />} />
         <Route path="/createTest" element={<CreateTest />} />
         <Route path="/updateTest" element={<UpdateTest />} />
         <Route path="/statisticTest" element={<StatisticTest />} />
