@@ -4,22 +4,20 @@ import "../../App.css";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function Check() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
+  const [showAnswer, setShowAnswer] = useState(false); // Добавляем состояние для отображения ответа
   const navigate = useNavigate();
   
   useEffect(() => {
     // Получение room_id из URL
     const room_id = window.location.pathname.split("/").pop();
-
-    // Выполнение GET-запроса при загрузке страницы
+    
     const fetchData = async () => {
       try {
         const token = Cookies.get('access_token');
-        const response = await fetch(`http://127.0.0.1:8000/room/${room_id}`, {
+        const response = await fetch(`http://127.0.0.1:8000/check/${room_id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -28,9 +26,14 @@ export default function Check() {
           const data = await response.json();
           if (data) {
             setQuestion(data.description);
-            setAnswer(data.answer);
+            if (data.answer) {
+              setAnswer(data.answer);
+              setShowAnswer(true); // Показываем элемент
+            } else {
+              setShowAnswer(false); // Скрываем элемент
+            }
           } else {
-            navigate('/main');
+            navigate('/finish');
           }
         } else {
           console.error("Failed to fetch room data");
@@ -40,25 +43,31 @@ export default function Check() {
       }
     };
 
+    // Выполнение GET-запроса при загрузке страницы
     fetchData();
+
+    // Установка интервала для выполнения GET-запроса каждую секунду
+    const intervalId = setInterval(fetchData, 1000);
+
+    // Очистка интервала при размонтировании компонента
+    return () => clearInterval(intervalId);
   }, [navigate]);
 
-
-  
   return (
     <>
-    <Header/>
+      <Header />
       <div className="room">
-
         <div className="info">
           <h1>Задание</h1>
-          <div className="question">
+          <div className="question_text">
             <textarea readOnly value={question} />
-            <h1>Ответ</h1>
-            <div className="answer">
+          </div>
+          {showAnswer && ( // Условный рендеринг для отображения ответа
+            <div className="answer_text">
+              <h1>Ответ</h1>
               <textarea readOnly value={answer} />
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

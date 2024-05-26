@@ -95,13 +95,13 @@ export default function Main() {
       <div className="main">
         <div className="main_start">
           <button className="btn_start" onClick={() => setActiveStart(true)}>
-            Начать
+            Начать cобеседование
             <img src={iconsStart} alt="iconsStart" />
           </button>
         </div>
         <div className="btn_2">
-          <button onClick={handleCreateTest}>Создать тест</button>
-          <button onClick={() => setModalActive(true)}>Редактировать тест</button>
+          <button onClick={handleCreateTest}>Создать тест собеседования</button>
+          <button onClick={() => setModalActive(true)}>Редактировать тест собеседования</button>
         </div>
         <div className="btn_3">
           <button onClick={() => setActiveStatistic(true)}>

@@ -121,7 +121,7 @@ export default function Room() {
           navigate('/main'); // Перенаправляем на главную страницу, если нет следующего вопроса
         }
       } else {
-        setErrorMessage('Введите оценку');
+        setErrorMessage('Отправьте оценку');
       }
     } catch (error) {
       console.error('Error fetching next question:', error);

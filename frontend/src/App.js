@@ -9,6 +9,7 @@ import UpdateTest from '../src/layouts /test/UpdateTest';
 import StatisticTest from '../src/layouts /statistics/StatisticTest';
 import Check from '../src/layouts /check/Check';
 import ProtectedRoute from './layouts /auth/ProtectedRoute';
+import Finish from './layouts /Finish/Finish';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/check/:room_id" element={<Check />} />
+        <Route path="/finish" element={<Finish />} />
         <Route
           path="/main"
           element={
