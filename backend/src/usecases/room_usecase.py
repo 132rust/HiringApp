@@ -16,10 +16,10 @@ class RoomUsecase:
 
     async def __save_result(self, room_data: dict) -> None:
         new_score = Score(
-            score=sum(room_data['marks']) / len(room_data['marks']),
+            score=round(sum(room_data['marks']) / len(room_data['marks'])),
             candidate_name=room_data['candidate_name'],
             media_contact=room_data['media_contact'],
-            date=room_data['date'],
+            date=datetime.strptime(room_data['date'], "%Y-%m-%d %H:%M:%S.%f"),
             test_id=room_data['test_id']
         )
         await self.score_repo.create_score(new_score)
