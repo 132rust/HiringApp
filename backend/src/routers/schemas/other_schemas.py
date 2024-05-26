@@ -18,3 +18,9 @@ class TestUpdate(TestCreate, TestDelete):
 
 class DeleteScore(BaseModel):
     score_id: int
+
+
+class CreateRoom(BaseModel):
+    test_id: int
+    candidate_name: str
+    media_content: str

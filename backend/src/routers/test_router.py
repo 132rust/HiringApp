@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, Depends
 
 from routers.depends.usecase_depends import get_test_usecase
-from routers.schemas.other_schemas import *
+from routers.schemas.other_schemas import TestCreate, TestUpdate, TestDelete
 from usecases.test_usecase import TestUsecase
 
 test_router = APIRouter(tags=["test"], prefix="/test")

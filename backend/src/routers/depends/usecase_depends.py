@@ -14,6 +14,8 @@ from ports.repository.score_repository import ScoreRepository
 from ports.repository.test_repository import TestRepository
 from routers.depends.database_depends import get_db
 from usecases.auth import AuthUseCase
+from usecases.room_usecase import RoomUsecase
+from usecases.score_usecase import ScoreUsecase
 from usecases.test_usecase import TestUsecase
 
 
@@ -52,5 +54,12 @@ def get_test_usecase(
 def get_score_usecase(
         auth: HTTPAuthorizationCredentials = Depends(HTTPBearer()),
         score_repo: ScoreRepository = Depends(get_score_repository),
-) -> TestUsecase:
-    return TestUsecase(auth.credentials, score_repo)
+) -> ScoreUsecase:
+    return ScoreUsecase(score_repo)
+
+
+def get_room_usecase(auth: HTTPAuthorizationCredentials = Depends(HTTPBearer()),
+                     question_repo: QuestionRepository = Depends(get_question_repository),
+                     cache_repo: CacheRepository = Depends(get_cache_repository),
+                     score_repo: ScoreRepository = Depends(get_score_repository)) -> RoomUsecase:
+    return RoomUsecase(cache_repo, question_repo, score_repo)

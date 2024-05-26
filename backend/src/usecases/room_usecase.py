@@ -31,7 +31,8 @@ class RoomUsecase:
                 "test_data": test_data,
                 "marks": [-1] * len(test_data),
                 "current_question_id": 0,
-                "date": datetime.now(),
+                "date": str(datetime.now()),
+                "isVisible": False,
                 "candidate_name": candidate_name,
                 "media_contact": media_contact,
                 "test_id": test_id
