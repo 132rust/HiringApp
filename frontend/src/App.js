@@ -10,10 +10,16 @@ import StatisticTest from '../src/layouts /statistics/StatisticTest';
 import Check from '../src/layouts /check/Check';
 import ProtectedRoute from './layouts /auth/ProtectedRoute';
 import Finish from './layouts /Finish/Finish';
+import MyComponent from './title';
 
 function App() {
+  
+ 
   return (
+    <>
+   
     <div className="App">
+      <MyComponent/>
       <Routes>
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
@@ -62,6 +68,7 @@ function App() {
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>
+    </>
   );
 }
 

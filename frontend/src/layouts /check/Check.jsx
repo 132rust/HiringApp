@@ -24,7 +24,7 @@ export default function Check() {
         });
         if (response.ok) {
           const data = await response.json();
-          if (data) {
+          
             setQuestion(data.description);
             if (data.answer) {
               setAnswer(data.answer);
@@ -32,11 +32,10 @@ export default function Check() {
             } else {
               setShowAnswer(false); // Скрываем элемент
             }
-          } else {
-            navigate('/finish');
-          }
+         
+        
         } else {
-          console.error("Failed to fetch room data");
+          navigate('/finish');
         }
       } catch (error) {
         console.error("Error fetching room data:", error);
