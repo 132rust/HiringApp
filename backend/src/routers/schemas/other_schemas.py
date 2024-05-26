@@ -24,3 +24,7 @@ class CreateRoom(BaseModel):
     test_id: int
     candidate_name: str
     media_content: str
+
+class SetMark(BaseModel):
+    room_id: str
+    score: int

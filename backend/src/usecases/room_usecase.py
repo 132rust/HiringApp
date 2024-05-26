@@ -51,19 +51,20 @@ class RoomUsecase:
 
     async def move_pointer(self, room_id: str) -> dict | None:
         room_data = await self.cache_repo.get_cache(room_id)
-        if room_data["marks"][room_data["current_question_id"]] == -1:
+        if not room_data["current_question_id"] == -1 and room_data["marks"][room_data["current_question_id"]] == -1:
             raise RequestProcessingException("Не выставлена оценка")
         room_data["current_question_id"] += 1
+
         room_data["isVisible"] = False
         if room_data["current_question_id"] < len(room_data["marks"]):
             await self.cache_repo.set_cache(room_id, room_data)
-            return room_data['test_data']['current_question_id']
+            return room_data['test_data'][room_data["current_question_id"]]
         else:
             await self.__save_result(room_data)
             await self.cache_repo.delete_cache(room_id)
             return None
 
-    async def change_visibility(self, room_id: str, is_visible: bool) -> None:
+    async def change_visibility(self, room_id: str) -> None:
         room_data = await self.cache_repo.get_cache(room_id)
-        room_data["isVisible"] = is_visible
+        room_data["isVisible"] = not room_data["isVisible"]
         await self.cache_repo.set_cache(room_id, room_data)
