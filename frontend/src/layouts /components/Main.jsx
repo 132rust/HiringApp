@@ -28,6 +28,27 @@ export default function Main() {
     navigate('/createTest');
   };
 
+  const handleStartTest = async (testData) => {
+    const token = Cookies.get('access_token');
+    const response = await fetch('http://127.0.0.1:8000/room/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(testData)
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      navigate(`/room/${data.test_id}`, { state: { ...testData, testName: data.test_name } });
+      return { success: true };
+    } else {
+      console.error('Failed to start test');
+      return { success: false };
+    }
+  };
+
   useEffect(() => {
     const fetchSavedTests = async () => {
       try {
@@ -43,7 +64,7 @@ export default function Main() {
         if (response.ok) {
           const data = await response.json();
           setSavedTests(data);
-          setSavedTestsStatistic(data); // Также установите данные для статистики
+          setSavedTestsStatistic(data);
         } else {
           console.error('Failed to fetch saved tests');
         }
@@ -90,7 +111,7 @@ export default function Main() {
           </button>
         </div>
       </div>
-      <ModalStart active={activeStart} setActive={setActiveStart} savedTests={savedTests} />
+      <ModalStart active={activeStart} setActive={setActiveStart} savedTests={savedTests} onStartTest={handleStartTest} />
       <ModalStatistic active={activeStatistic} setActive={setActiveStatistic} savedTestsStatistic={savedTestsStatistic} />
       <Modal active={modalActive} setActive={setModalActive} savedTests={savedTests} setSavedTests={setSavedTests} setSavedTestsStatistic={setSavedTestsStatistic} />
     </>
