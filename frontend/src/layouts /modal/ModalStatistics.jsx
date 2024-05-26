@@ -25,7 +25,7 @@ const ModalStatistic = ({ active, setActive, savedTestsStatistic }) => {
         </div>
         <div className="modal_content_inner">
           {savedTestsStatistic.map((test) => (
-            <div key={test.test_id} className="test-item">
+            <div key={test.test_id} className="statistic-test-item">
               <button onClick={() => handleEditTest(test.test_id)}>{test.test_name}</button>
             </div>
           ))}
