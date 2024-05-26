@@ -7,12 +7,15 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
 import Modal from '../modal/ModalEdit';
+import ModalStatistic from '../modal/ModalStatistics';
 
 export default function Main() {
   const navigate = useNavigate();
   const location = useLocation();
   const [modalActive, setModalActive] = useState(false);
   const [savedTests, setSavedTests] = useState([]);
+  const [savedTestsStatistic, setSavedTestsStatistic] = useState([]); // Инициализируем как массив
+  const [activeStatiscit, setActiveStatiscit] = useState(false);
 
   const handleLogout = () => {
     Cookies.remove('userData');
@@ -73,7 +76,7 @@ export default function Main() {
           <button onClick={() => setModalActive(true)}>Редактировать тест</button>
         </div>
         <div className="btn_3">
-          <button>
+          <button onClick={() => setActiveStatiscit(true)}>
             Статистика
             <img src={iconsList} alt="iconsList" />
           </button>
@@ -85,11 +88,8 @@ export default function Main() {
           </button>
         </div>
       </div>
-     
+      <ModalStatistic active={activeStatiscit} setActive={setActiveStatiscit} savedTestsStatistic={savedTestsStatistic} setSavedTestsStatistic={setSavedTestsStatistic} />
       <Modal active={modalActive} setActive={setModalActive} savedTests={savedTests} setSavedTests={setSavedTests} />
     </>
   );
 }
-
-
-

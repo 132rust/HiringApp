@@ -25,6 +25,7 @@
     transform: scale(0.5);
     transition: 0.4s all;
     width: 50vw;
+    
    
  
 }
@@ -70,7 +71,7 @@
     box-shadow: 0 5px 0 #555555;
   }
 .modal_conten_inner{
-    
+    overflow-y: auto;
     background-color: #deeeef;
     border-radius: 12px;
     

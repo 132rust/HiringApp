@@ -9,7 +9,7 @@ const Modal = ({ active, setActive, savedTests, setSavedTests }) => {
 
     const handleEditTest = (test_id) => {
     Cookies.set('test_id', test_id);
-    navigate(`/updateTest`);
+    navigate(`/statisticTest`);
   };
 
   const handDeleteTest = async (test_id) => {
