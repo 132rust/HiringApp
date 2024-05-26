@@ -84,6 +84,7 @@
     background-color: #deeeef;
     border-radius: 12px;
     padding: 15px;
+    margin-top: 5px;
 }
 
 .test-item button{
@@ -107,4 +108,31 @@
 
 .delete-button{
     background-color: red;
+}
+
+.statistic-test-item{
+    display: flex;
+    justify-content: center;
+    background-color: #deeeef;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 5px;
+    
+}
+.statistic-test-item button{
+    width: 450px;
+    height: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgb(135, 134, 134);
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #deeeef;
+    box-shadow: 0 5px 0 #909090;
+    background: #03282b;
+}
+.statistic-test-item button:hover{
+    background: #498f95;
+    box-shadow: 0 5px 0 #555555;
 }
