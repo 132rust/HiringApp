@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import iconsStart from '../../icons/start.png';
 import iconsList from '../../icons/list.png';
 import iconsExit from '../../icons/exit.png';
@@ -5,9 +6,9 @@ import Header from './Header';
 import Welcome from './Welcom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useState, useEffect } from 'react';
 import Modal from '../modal/ModalEdit';
 import ModalStatistic from '../modal/ModalStatistics';
+import ModalStart from '../modal/ModalStart';
 
 export default function Main() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function Main() {
   const [savedTests, setSavedTests] = useState([]);
   const [savedTestsStatistic, setSavedTestsStatistic] = useState([]);
   const [activeStatistic, setActiveStatistic] = useState(false);
+  const [activeStart, setActiveStart] = useState(false);
 
   const handleLogout = () => {
     Cookies.remove('userData');
@@ -66,7 +68,7 @@ export default function Main() {
       <Welcome />
       <div className="main">
         <div className="main_start">
-          <button className="btn_start">
+          <button className="btn_start" onClick={() => setActiveStart(true)}>
             Начать
             <img src={iconsStart} alt="iconsStart" />
           </button>
@@ -88,6 +90,7 @@ export default function Main() {
           </button>
         </div>
       </div>
+      <ModalStart active={activeStart} setActive={setActiveStart} savedTests={savedTests} />
       <ModalStatistic active={activeStatistic} setActive={setActiveStatistic} savedTestsStatistic={savedTestsStatistic} />
       <Modal active={modalActive} setActive={setModalActive} savedTests={savedTests} setSavedTests={setSavedTests} setSavedTestsStatistic={setSavedTestsStatistic} />
     </>

@@ -136,3 +136,43 @@
     background: #498f95;
     box-shadow: 0 5px 0 #555555;
 }
+
+.modal_content_inner .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .modal_content_inner label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .modal_content_inner input,
+  .modal_content_inner select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .modal_content_inner button {
+    width: 45%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #03282b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal_content_inner button:hover {
+    background-color: #498f95;
+  }
+  
