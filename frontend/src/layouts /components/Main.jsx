@@ -29,6 +29,10 @@ export default function Main() {
   };
 
   const handleStartTest = async (testData) => {
+    
+    const req = {  "test_id": testData.testId,
+    "candidate_name": testData.candidateName,
+    "media_content": testData.candidateContact}
     const token = Cookies.get('access_token');
     const response = await fetch('http://127.0.0.1:8000/room/create', {
       method: 'POST',
@@ -36,12 +40,13 @@ export default function Main() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(testData)
+      body: JSON.stringify(req)
     });
 
     if (response.ok) {
       const data = await response.json();
-      navigate(`/room/${data.test_id}`, { state: { ...testData, testName: data.test_name } });
+      console.log(data)
+      navigate(`/room/${data.room_id}`, { state: { ...testData, testName: data.test_name } });
       return { success: true };
     } else {
       console.error('Failed to start test');

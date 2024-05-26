@@ -15,7 +15,7 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/room" element={<Room />} />
+        <Route path="/room/:test_id" element={<Room />} />
         <Route path="/createTest" element={<CreateTest />} />
         <Route path="/updateTest" element={<UpdateTest />} />
         <Route path="/statisticTest" element={<StatisticTest />} />
