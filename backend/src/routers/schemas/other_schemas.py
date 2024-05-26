@@ -14,3 +14,7 @@ class TestDelete(BaseModel):
 
 class TestUpdate(TestCreate, TestDelete):
     pass
+
+
+class DeleteScore(BaseModel):
+    score_id: int
