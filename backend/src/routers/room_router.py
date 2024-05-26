@@ -23,5 +23,5 @@ async def set_score(room_id: str, usecase: RoomUsecase = Depends(get_room_usecas
 
 
 @room_router.get("/{room_id}", status_code=status.HTTP_200_OK)
-async def set_score(room_id: str, usecase: RoomUsecase = Depends(get_room_usecase)):
+async def move_pointer(room_id: str, usecase: RoomUsecase = Depends(get_room_usecase)):
     return await usecase.move_pointer(room_id)
