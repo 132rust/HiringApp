@@ -24,7 +24,7 @@ class RoomUsecase:
         )
         await self.score_repo.create_score(new_score)
 
-    async def create_room(self, test_id, candidate_name, media_contact) -> str:
+    async def create_room(self, test_id, candidate_name, media_contact) -> dict:
         try:
             test_data = await self.question_repo.get_all_questions(test_id)
             test_data = [{"description": q.description,"answer":q.answer} for q in test_data]
@@ -40,7 +40,7 @@ class RoomUsecase:
             }
             room_id = str(uuid4())
             await self.cache_repo.set_cache(room_id, room_data)
-            return room_id
+            return {"room_id": room_id}
         except DatabaseException:
             raise RequestProcessingException
 
