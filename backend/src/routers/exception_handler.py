@@ -47,6 +47,7 @@ async def invalid_permissions_exception_handler(request: Request, exc: InvalidPe
 
 
 def include_exceptions_to_app(app: FastAPI):
+    app.add_exception_handler(RequestProcessingException, request_proc_ex_handler)
     app.add_exception_handler(UserAlreadyExist, duplicate_entity_exception_handler)
     app.add_exception_handler(UserNotFoundException, user_not_found_exception_handler)
     app.add_exception_handler(InvalidCredentialsException, invalid_credentials_exception_handler)
