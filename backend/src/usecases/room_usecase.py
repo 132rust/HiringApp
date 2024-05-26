@@ -50,19 +50,22 @@ class RoomUsecase:
         await self.cache_repo.set_cache(room_id, room_data)
 
     async def move_pointer(self, room_id: str) -> dict | None:
-        room_data = await self.cache_repo.get_cache(room_id)
-        if not room_data["current_question_id"] == -1 and room_data["marks"][room_data["current_question_id"]] == -1:
-            raise RequestProcessingException("Не выставлена оценка")
-        room_data["current_question_id"] += 1
+        try:
+            room_data = await self.cache_repo.get_cache(room_id)
+            if not room_data["current_question_id"] == -1 and room_data["marks"][room_data["current_question_id"]] == -1:
+                raise RequestProcessingException("Не выставлена оценка")
+            room_data["current_question_id"] += 1
 
-        room_data["isVisible"] = False
-        if room_data["current_question_id"] < len(room_data["marks"]):
-            await self.cache_repo.set_cache(room_id, room_data)
-            return room_data['test_data'][room_data["current_question_id"]]
-        else:
-            await self.__save_result(room_data)
-            await self.cache_repo.delete_cache(room_id)
-            return None
+            room_data["isVisible"] = False
+            if room_data["current_question_id"] < len(room_data["marks"]):
+                await self.cache_repo.set_cache(room_id, room_data)
+                return room_data['test_data'][room_data["current_question_id"]]
+            else:
+                await self.__save_result(room_data)
+                await self.cache_repo.delete_cache(room_id)
+                return None
+        except Exception:
+            raise RequestProcessingException("Тест завершен")
 
     async def change_visibility(self, room_id: str) -> None:
         room_data = await self.cache_repo.get_cache(room_id)
