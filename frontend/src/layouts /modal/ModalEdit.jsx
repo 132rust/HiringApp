@@ -3,16 +3,15 @@ import './ModalEdit.css';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-const Modal = ({ active, setActive, savedTests, setSavedTests }) => {
-    console.log(typeof setSavedTests)
+const Modal = ({ active, setActive, savedTests, setSavedTests, setSavedTestsStatistic }) => {
   const navigate = useNavigate();
 
-    const handleEditTest = (test_id) => {
+  const handleEditTest = (test_id) => {
     Cookies.set('test_id', test_id);
     navigate(`/statisticTest`);
   };
 
-  const handDeleteTest = async (test_id) => {
+  const handleDeleteTest = async (test_id) => {
     try {
       const token = Cookies.get('access_token');
       const response = await fetch(`http://127.0.0.1:8000/test/delete`, {
@@ -25,8 +24,8 @@ const Modal = ({ active, setActive, savedTests, setSavedTests }) => {
       });
 
       if (response.ok) {
-        console.log(typeof setSavedTests);
-        setSavedTests(savedTests.filter((test) => test.test_id !== test_id));
+        setSavedTests(prevTests => prevTests.filter((test) => test.test_id !== test_id));
+        setSavedTestsStatistic(prevTests => prevTests.filter((test) => test.test_id !== test_id));
       } else {
         console.error('Failed to delete test');
       }
@@ -44,9 +43,9 @@ const Modal = ({ active, setActive, savedTests, setSavedTests }) => {
         </div>
         <div className="modal_content_inner">
           {savedTests.map((test) => (
-            <div key={test.id} className="test-item">
+            <div key={test.test_id} className="test-item">
               <button onClick={() => handleEditTest(test.test_id)}>{test.test_name}</button>
-              <button onClick={() => handDeleteTest(test.test_id)} className="delete-button">Удалить</button>
+              <button onClick={() => handleDeleteTest(test.test_id)} className="delete-button">Удалить</button>
             </div>
           ))}
         </div>

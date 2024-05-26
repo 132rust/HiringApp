@@ -14,8 +14,8 @@ export default function Main() {
   const location = useLocation();
   const [modalActive, setModalActive] = useState(false);
   const [savedTests, setSavedTests] = useState([]);
-  const [savedTestsStatistic, setSavedTestsStatistic] = useState([]); // Инициализируем как массив
-  const [activeStatiscit, setActiveStatiscit] = useState(false);
+  const [savedTestsStatistic, setSavedTestsStatistic] = useState([]);
+  const [activeStatistic, setActiveStatistic] = useState(false);
 
   const handleLogout = () => {
     Cookies.remove('userData');
@@ -26,7 +26,6 @@ export default function Main() {
     navigate('/createTest');
   };
 
-  // Fetch saved tests on component mount
   useEffect(() => {
     const fetchSavedTests = async () => {
       try {
@@ -42,6 +41,7 @@ export default function Main() {
         if (response.ok) {
           const data = await response.json();
           setSavedTests(data);
+          setSavedTestsStatistic(data); // Также установите данные для статистики
         } else {
           console.error('Failed to fetch saved tests');
         }
@@ -53,10 +53,10 @@ export default function Main() {
     fetchSavedTests();
   }, []);
 
-  // Update state with the new test if available in location state
   useEffect(() => {
     if (location.state?.savedTest) {
       setSavedTests((prevTests) => [...prevTests, location.state.savedTest]);
+      setSavedTestsStatistic((prevTests) => [...prevTests, location.state.savedTest]);
     }
   }, [location.state]);
 
@@ -76,7 +76,7 @@ export default function Main() {
           <button onClick={() => setModalActive(true)}>Редактировать тест</button>
         </div>
         <div className="btn_3">
-          <button onClick={() => setActiveStatiscit(true)}>
+          <button onClick={() => setActiveStatistic(true)}>
             Статистика
             <img src={iconsList} alt="iconsList" />
           </button>
@@ -88,8 +88,8 @@ export default function Main() {
           </button>
         </div>
       </div>
-      <ModalStatistic active={activeStatiscit} setActive={setActiveStatiscit} savedTestsStatistic={savedTestsStatistic} setSavedTestsStatistic={setSavedTestsStatistic} />
-      <Modal active={modalActive} setActive={setModalActive} savedTests={savedTests} setSavedTests={setSavedTests} />
+      <ModalStatistic active={activeStatistic} setActive={setActiveStatistic} savedTestsStatistic={savedTestsStatistic} />
+      <Modal active={modalActive} setActive={setModalActive} savedTests={savedTests} setSavedTests={setSavedTests} setSavedTestsStatistic={setSavedTestsStatistic} />
     </>
   );
 }
