@@ -27,10 +27,11 @@ class RoomUsecase:
     async def create_room(self, test_id, candidate_name, media_contact) -> str:
         try:
             test_data = await self.question_repo.get_all_questions(test_id)
+            test_data = [{"description": q.description,"answer":q.answer} for q in test_data]
             room_data = {
                 "test_data": test_data,
                 "marks": [-1] * len(test_data),
-                "current_question_id": 0,
+                "current_question_id": -1,
                 "date": str(datetime.now()),
                 "isVisible": False,
                 "candidate_name": candidate_name,
@@ -48,16 +49,21 @@ class RoomUsecase:
         room_data["marks"][room_data["current_question_id"]] = mark
         await self.cache_repo.set_cache(room_id, room_data)
 
-    async def move_pointer(self, room_id: str) -> None:
+    async def move_pointer(self, room_id: str) -> dict | None:
         room_data = await self.cache_repo.get_cache(room_id)
         if room_data["marks"][room_data["current_question_id"]] == -1:
             raise RequestProcessingException("Не выставлена оценка")
         room_data["current_question_id"] += 1
+        room_data["isVisible"] = False
         if room_data["current_question_id"] < len(room_data["marks"]):
             await self.cache_repo.set_cache(room_id, room_data)
+            return room_data['test_data']['current_question_id']
         else:
             await self.__save_result(room_data)
             await self.cache_repo.delete_cache(room_id)
+            return None
 
-    async def get_question_info(self, room_id: str) -> dict:
+    async def change_visibility(self, room_id: str, is_visible: bool) -> None:
         room_data = await self.cache_repo.get_cache(room_id)
+        room_data["isVisible"] = is_visible
+        await self.cache_repo.set_cache(room_id, room_data)
