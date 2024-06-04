@@ -8,6 +8,8 @@ import Cookies from 'js-cookie';
 const CreateTest = () => {
   const [tasks, setTasks] = useState([{ id: Date.now(), question: '', answer: '' }]);
   const [testName, setTestName] = useState('');
+  const [testNameError, setTestNameError] = useState('');
+  const [tasksError, setTasksError] = useState('');
   const addButtonRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,18 +38,26 @@ const CreateTest = () => {
   };
 
   const handleDeleteTask = (id) => {
-    console.log(typeof setTasks);
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const handleSave = async () => {
+    let hasErrors = false;
     if (!testName.trim()) {
-      console.error('Название теста не может быть пустым');
-      return;
+      setTestNameError('Название теста не может быть пустым');
+      hasErrors = true;
+    } else {
+      setTestNameError('');
     }
 
     if (tasks.some(task => !task.question.trim() || !task.answer.trim())) {
-      console.error('Все вопросы и ответы должны быть заполнены');
+      setTasksError('Все вопросы и ответы должны быть заполнены');
+      hasErrors = true;
+    } else {
+      setTasksError('');
+    }
+
+    if (hasErrors) {
       return;
     }
 
@@ -69,7 +79,7 @@ const CreateTest = () => {
       });
 
       if (response.ok) {
-        const savedTest = await response.json(); // Assuming the saved test data is returned
+        const savedTest = await response.json();
         navigate('/main', { state: { savedTest } });
       } else {
         console.error('Не удалось сохранить тест');
@@ -99,6 +109,7 @@ const CreateTest = () => {
               value={testName}
               onChange={(e) => setTestName(e.target.value)}
             />
+            {testNameError && <div style={{ color: 'red', textAlign:"center", fontSize:'11px', padding:'3px' }}>{testNameError}</div>}
           </div>
           <div>
             <button onClick={handleSave}>Сохранить</button>
@@ -130,9 +141,11 @@ const CreateTest = () => {
                   </button>
                 </div>
               </div>
+              {tasksError && <div style={{ color: 'red', textAlign:"center", fontSize:'11px', padding:'3px' }}>{tasksError}</div>}
               <div className="line"></div>
             </div>
           ))}
+          
           <div ref={addButtonRef} style={{ marginTop: '20px' }}>
             <button onClick={handleAddTask}>
               Добавить тест <img src={iconsPlus} alt="Добавить" />
